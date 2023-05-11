@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Quantum.Domain", "Quantum.Domain\Quantum.Domain.csproj", "{5656D132-7EF4-419B-8644-8241B98AAEFD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Quantum.Application", "Quantum.Application\Quantum.Application.csproj", "{76835A12-8F25-4B02-95DA-9ECAC7059E66}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Quantum.WebAPI", "Quantum.WebAPI\Quantum.WebAPI.csproj", "{559001A2-6CBD-48C4-BFCB-88F1E893214D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5656D132-7EF4-419B-8644-8241B98AAEFD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5656D132-7EF4-419B-8644-8241B98AAEFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5656D132-7EF4-419B-8644-8241B98AAEFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5656D132-7EF4-419B-8644-8241B98AAEFD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{76835A12-8F25-4B02-95DA-9ECAC7059E66}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{76835A12-8F25-4B02-95DA-9ECAC7059E66}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{76835A12-8F25-4B02-95DA-9ECAC7059E66}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{76835A12-8F25-4B02-95DA-9ECAC7059E66}.Release|Any CPU.Build.0 = Release|Any CPU
+		{559001A2-6CBD-48C4-BFCB-88F1E893214D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{559001A2-6CBD-48C4-BFCB-88F1E893214D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{559001A2-6CBD-48C4-BFCB-88F1E893214D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{559001A2-6CBD-48C4-BFCB-88F1E893214D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
