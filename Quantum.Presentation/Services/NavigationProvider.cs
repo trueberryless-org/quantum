@@ -64,129 +64,13 @@ public class NavigationProvider
             },
 
             // Add pages here (everything else is automatic) #https://mudblazor.com/features/icons#icons
-            {
-                "ViewActivities",
-                new Page()
-                {
-                    Name = "Activities",
-                    Link = "/viewactivities",
-                    Type = PageType.CONTENT,
-                    Icon = Icons.Material.Filled.CalendarToday,
-                    Priority = PagePriority.IMPORTANT
-                }
-            },
-            {
-                "EditActivity",
-                new Page()
-                {
-                    Name = "Edit Activity",
-                    Link = "/editactivity",
-                    Type = PageType.CONTENT_NO_NAVBAR,
-                    Icon = Icons.Material.Filled.CalendarToday
-                }
-            },
-            {
-                "NewActivity",
-                new Page()
-                {
-                    Name = "New Activity",
-                    Link = "/newactivity",
-                    Type = PageType.CONTENT_NO_NAVBAR,
-                    Icon = Icons.Material.Filled.CalendarToday
-                }
-            },
             
             {
-                "ViewExercises",
+                "New Content",
                 new Page()
                 {
-                    Name = "Exercises",
-                    Link = "/viewexercises",
-                    Type = PageType.CONTENT,
-                    Icon = Icons.Material.Filled.FitnessCenter,
-                    Priority = PagePriority.IMPORTANT
-                }
-            },
-            {
-                "EditExercise",
-                new Page()
-                {
-                    Name = "Edit Exercise",
-                    Link = "/editexercise",
-                    Type = PageType.CONTENT_NO_NAVBAR,
-                    Icon = Icons.Material.Filled.FitnessCenter
-                }
-            },
-            {
-                "NewExercise",
-                new Page()
-                {
-                    Name = "New Exercise",
-                    Link = "/newexercise",
-                    Type = PageType.CONTENT_NO_NAVBAR,
-                    Icon = Icons.Material.Filled.FitnessCenter
-                }
-            },
-            
-            {
-                "ViewWorkouts",
-                new Page()
-                {
-                    Name = "Workouts",
-                    Link = "/viewworkouts",
-                    Type = PageType.CONTENT,
-                    Icon = Icons.Material.Filled.List,
-                    Priority = PagePriority.IMPORTANT
-                }
-            },
-            {
-                "EditWorkout",
-                new Page()
-                {
-                    Name = "Edit Workout",
-                    Link = "/editworkout",
-                    Type = PageType.CONTENT_NO_NAVBAR,
-                    Icon = Icons.Material.Filled.List
-                }
-            },
-            {
-                "NewWorkout",
-                new Page()
-                {
-                    Name = "New Workout",
-                    Link = "/newworkout",
-                    Type = PageType.CONTENT_NO_NAVBAR,
-                    Icon = Icons.Material.Filled.List
-                }
-            },
-            {
-                "Statistic",
-                new Page()
-                {
-                    Name = "Statistic",
-                    Link = "/statistic",
-                    Type = PageType.CONTENT,
-                    Icon = Icons.Material.Filled.PieChart
-                }
-            },
-            {
-                "Leaderboard",
-                new Page()
-                {
-                    Name = "Leaderboard",
-                    Link = "/leaderboard",
-                    Type = PageType.CONTENT,
-                    Icon = Icons.Material.Filled.Leaderboard
-                }
-            },
-            {
-                "Help",
-                new Page()
-                {
-                    Name = "Help",
-                    Link = "/help",
-                    Type = PageType.CONTENT,
-                    Icon = Icons.Material.Filled.Help
+                    Name = "New Content", Link = "/new", Type = PageType.CONTENT,
+                    Icon = Icons.Material.Filled.Source
                 }
             },
         };

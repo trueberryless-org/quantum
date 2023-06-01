@@ -12,7 +12,11 @@
 @inject IJSRuntime JsRuntime
 
 <MudThemeProvider IsDarkMode="@IsDarkMode" @ref="@_mudThemeProvider" Theme="ThemeProvider.Theme"/>
-<MudDialogProvider/>
+<MudDialogProvider
+    CloseButton="true"
+    DisableBackdropClick="false"
+    Position="DialogPosition.Center"
+    CloseOnEscapeKey="true"/>
 <MudSnackbarProvider/>
 
 <PageTitle>WebApp</PageTitle>
