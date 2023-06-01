@@ -1,0 +1,267 @@
+﻿@using Quantum.Presentation.Services
+
+@inject NavigationProvider NavigationProvider
+@inject ThemeProvider ThemeProvider
+
+<footer>
+    <div class="footer-container">
+        <div class="footer-element">
+            <h5>Related</h5>
+            <hr length="short"/>
+            <div class="space-between">
+                <div class="mr-3">
+                    @foreach (var related in NavigationProvider.GetPages(PageType.RELATED))
+                    {
+                        <div>
+                            <a href="@related.Link" class="footer-link" youtube-font>@related.Name</a>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="footer-element">
+            <h5>Architecture</h5>
+            <hr length="short"/>
+            <div class="grid" grid-columns="2">
+                <div>Framework:</div>
+                <div>
+                    <a href="https://learn.microsoft.com/de-de/aspnet/core/?view=aspnetcore-7.0" class="footer-link" youtube-font>ASP.NET Core</a>
+                </div>
+                <div>UI library:</div>
+                <div>
+                    <a href="https://mudblazor.com/" class="footer-link" youtube-font>MudBlazor</a>
+                </div>
+                <div>Database:</div>
+                <div>
+                    <a href="https://www.mongodb.com/" class="footer-link" youtube-font>MySQL</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-element">
+            <h5>Copyright</h5>
+            <hr length="short"/>
+            <div>&copy; @DateTime.Now.Year</div>
+            <div>
+                trueberryless
+            </div>
+            <br/>
+            <div>
+                <a href="/imprint" class="footer-link" youtube-font>Imprint</a>
+            </div>
+            <div>
+                <a href="/sources" class="footer-link" youtube-font>Sources</a>
+            </div>
+        </div>
+        <div class="footer-element">
+            <h5>Donation</h5>
+            <hr length="short"/>
+            <div></div>
+            <strong>
+                <a href="https://www.paypal.com/donate/?hosted_button_id=WDQ5D2VQ6SWEC"
+                   class="footer-link">
+                    Please donate me a coffee!
+                </a>
+            </strong>
+        </div>
+    </div>
+    <a style="cursor: default" id="vogel_a" class="footer-vogel">
+        <img loading="lazy" src="@GetRandomImage()" alt="" id="vogel"/>
+    </a>
+</footer>
+
+@code
+{
+
+    [CascadingParameter]
+    public MainLayout? MainLayout { get; set; }
+
+    public string GetRandomImage()
+    {
+        string path = "./img/";
+
+        string[] pictures = new[]
+        {
+            "vogel1.png",
+            "vogel2.png",
+            "vogel3.png",
+            "vogel5.png",
+            "vogel6.png",
+            "vogel7.png",
+            "vogel9.png",
+            "vogel10.png",
+            "vogel11.png",
+            "vogel12.png",
+            "vogel13.png",
+            "vogel14.png",
+            "vogel15.png",
+            "vogel16.png",
+            "vogel17.png",
+            "vogel18.png",
+            "vogel4.gif",
+            "vogel19.gif",
+            "vogel20.gif",
+            "vogel21.gif",
+            "vogel22.gif",
+            "vogel23.gif",
+            "vogel24.gif",
+            "vogel25.gif",
+        };
+
+        return path + pictures[new Random().Next(1, pictures.Length)];
+    }
+}
+
+<style>
+    .footer-link {
+      position: relative;
+      display: inline-block;
+      margin-bottom: .3rem;
+      color: @(MainLayout.IsDarkMode ? ThemeProvider.Theme.PaletteDark.White : ThemeProvider.Theme.Palette.Dark);
+      -webkit-transition: color 0.3s ease-out;
+      transition: color 0.3s ease-out;
+      cursor: pointer;
+    }
+    
+    .footer-link[youtube-font] {
+      font-family: "Youtube Sans", sans-serif;
+      letter-spacing: 0.03rem;
+      word-spacing: 0.05rem;
+    }
+    
+    .footer-link::before {
+      content: "";
+      position: absolute;
+      width: 100%;
+      -webkit-transform: scaleX(1);
+              transform: scaleX(1);
+      -webkit-transform-origin: bottom left;
+              transform-origin: bottom left;
+      height: 0.15rem;
+      border-radius: 10000px;
+      bottom: 0;
+      left: 0;
+      -webkit-transition: background 0.3s ease-out, -webkit-transform 0.3s ease-out;
+      transition: background 0.3s ease-out, -webkit-transform 0.3s ease-out;
+      transition: transform 0.3s ease-out, background 0.3s ease-out;
+      transition: transform 0.3s ease-out, background 0.3s ease-out, -webkit-transform 0.3s ease-out;
+      background-color: @(MainLayout.IsDarkMode ? ThemeProvider.Theme.PaletteDark.White : ThemeProvider.Theme.Palette.Dark);
+    }
+    
+    .footer-link:hover {
+      color: @(MainLayout.IsDarkMode ? ThemeProvider.Theme.PaletteDark.Secondary : ThemeProvider.Theme.Palette.SecondaryDarken);
+    }
+    
+    .footer-link:hover::before {
+      -webkit-transform: scaleX(0);
+              transform: scaleX(0);
+      -webkit-transform-origin: bottom right;
+              transform-origin: bottom right;
+      background-color: @(MainLayout.IsDarkMode ? ThemeProvider.Theme.PaletteDark.Secondary : ThemeProvider.Theme.Palette.SecondaryDarken);
+    }
+
+    footer {
+      position: relative;
+      padding: 5rem 5rem 10rem 5rem;
+      background-color: @(MainLayout.IsDarkMode ? ThemeProvider.Theme.PaletteDark.BackgroundGrey : ThemeProvider.Theme.Palette.BackgroundGrey);
+      color: @(MainLayout.IsDarkMode ? ThemeProvider.Theme.PaletteDark.White : ThemeProvider.Theme.Palette.Dark);
+      font-size: 1rem;
+      min-height: -webkit-fill-available;
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-pack: center;
+          -ms-flex-pack: center;
+              justify-content: center;
+      -webkit-box-align: center;
+          -ms-flex-align: center;
+              align-items: center;
+    }
+    footer > .footer-container {
+      position: relative;
+      display: inline-grid;
+      row-gap: 3rem;
+      -webkit-column-gap: 3rem;
+         -moz-column-gap: 3rem;
+              column-gap: 3rem;
+    }
+    footer > .footer-container > .footer-element {
+      min-width: 10rem;
+    }
+    footer > .footer-container > .footer-element > .grid {
+      display: inline-grid;
+      row-gap: 0;
+      -webkit-column-gap: 1rem;
+         -moz-column-gap: 1rem;
+              column-gap: 1rem;
+      width: 100%;
+      margin-block: 0.5rem;
+    }
+    footer .footer-vogel {
+      position: absolute;
+      left: 50%;
+      -webkit-transform: translateX(-50%);
+              transform: translateX(-50%);
+      bottom: 3rem;
+      max-height: 4rem;
+      max-width: 4rem;
+      border-radius: 10000px;
+    }
+    footer .footer-vogel img {
+      width: 100%;
+      height: 100%;
+    }
+    footer h5 {
+      font-family: "Raleway", sans-serif;
+      font-size: clamp(1.2rem, 1.64vw, 1.5rem);
+      font-weight: 600;
+      margin: 0.75rem 0;
+      color: @(MainLayout.IsDarkMode ? ThemeProvider.Theme.PaletteDark.White : ThemeProvider.Theme.Palette.Dark);
+    }
+    footer hr {
+      position: relative;
+      width: 100%;
+      height: 0.25rem;
+      margin: 1.5rem 0;
+      background-color: @(MainLayout.IsDarkMode ? ThemeProvider.Theme.PaletteDark.White : ThemeProvider.Theme.Palette.GrayDarker);
+      border-radius: 20px;
+    }
+    footer hr[length=fluid] {
+      width: 100vw;
+    }
+    footer hr[length=long] {
+      width: 20rem;
+    }
+    footer hr[length=medium] {
+      width: 10rem;
+    }
+    footer hr[length=short] {
+      width: 5rem;
+    }
+    
+    @* TODO FIX KURZGESAGT IMAGES CENTERING *@
+    
+    @@media (min-width: 60em) {
+      footer > .footer-container {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      footer > .footer-container > .footer-element > .grid {
+        margin-block: 0;
+      }
+      footer > .footer-container > .footer-element > .grid[grid-columns="2"] {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    @@media (min-width: 100em) {
+      footer {
+        padding-bottom: 5rem;
+      }
+      footer > .footer-container {
+        grid-template-columns: repeat(4, 1fr);
+      }
+      footer .footer-vogel {
+        left: 1rem;
+        -webkit-transform: translateX(0%);
+                transform: translateX(0%);
+      }
+    }
+</style>

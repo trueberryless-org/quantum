@@ -1,13 +1,32 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
-using Quantum.Presentation.Data;
+using MudBlazor;
+using MudBlazor.Services;
+using Quantum.Presentation.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
-builder.Services.AddSingleton<WeatherForecastService>();
+
+builder.Services.AddScoped<BrowserService>();
+builder.Services.AddScoped<NavigationProvider>();
+builder.Services.AddScoped<ThemeProvider>();
+
+// MudBlazor
+builder.Services.AddMudServices(config =>
+{
+    config.SnackbarConfiguration.PositionClass = Defaults.Classes.Position.BottomCenter;
+
+    config.SnackbarConfiguration.PreventDuplicates = false;
+    config.SnackbarConfiguration.NewestOnTop = false;
+    config.SnackbarConfiguration.ShowCloseIcon = true;
+    config.SnackbarConfiguration.VisibleStateDuration = 3000;
+    config.SnackbarConfiguration.HideTransitionDuration = 200;
+    config.SnackbarConfiguration.ShowTransitionDuration = 200;
+    config.SnackbarConfiguration.SnackbarVariant = Variant.Filled;
+});
 
 var app = builder.Build();
 

@@ -9,7 +9,7 @@ namespace Quantum.WebAPI.Controllers;
 
 [ApiController]
 [Route("/nodes")]
-public class NodeController : AController<Node, NodeDto>
+public class NodeController : AController<Node, ReadNodeDto>
 {
     public NodeController(INodeRepository repository) : base(repository)
     {
