@@ -5,5 +5,6 @@ public enum ENodeType
     PAGE,
     HEADING,
     PARAGRAPH,
-    IMAGE
+    IMAGE,
+    DESCRIPTION
 }

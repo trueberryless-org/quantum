@@ -1,7 +1,12 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging.Abstractions;
 using MudBlazor;
 using MudBlazor.Services;
+using Quantum.Application.Services.Implementations;
+using Quantum.Application.Services.Interfaces;
+using Quantum.Domain.Configuration;
 using Quantum.Presentation.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,6 +14,17 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
+
+builder.Services.AddOptions();
+
+builder.Services.AddDbContextFactory<ModelDbContext>(
+    options => options.UseMySql(
+        builder.Configuration.GetConnectionString("DefaultConnection"),
+        new MySqlServerVersion(new Version(8, 0, 26))
+    ).UseLoggerFactory(new NullLoggerFactory())
+);
+
+builder.Services.AddScoped<INodeRepository, NodeRepository>();
 
 builder.Services.AddScoped<BrowserService>();
 builder.Services.AddScoped<NavigationProvider>();

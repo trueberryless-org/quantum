@@ -2,6 +2,7 @@
 
 namespace Quantum.Domain.Entities.Nodes;
 
-public abstract class Section : Node
+public class Description : Node
 {
+    
 }

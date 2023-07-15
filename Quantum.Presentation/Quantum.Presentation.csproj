@@ -20,6 +20,12 @@
         <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       </PackageReference>
       <PackageReference Include="MudBlazor" Version="6.7.0" />
+      <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="7.0.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Quantum.Application\Quantum.Application.csproj" />
+      <ProjectReference Include="..\Quantum.Domain\Quantum.Domain.csproj" />
     </ItemGroup>
 
 </Project>

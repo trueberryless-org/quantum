@@ -1,18 +1,28 @@
 ﻿@page "/site"
 @page "/site/{*Path}"
 
-@if (PathSegments != null)
+@using Quantum.Domain.Entities
+@using Quantum.Application.Services.Interfaces
+@using Quantum.Domain.Entities.Nodes
+
+@inject INodeRepository NodeRepository
+
+
+@if (CurrentNode != null)
 {
+    <p>Current Node Content: @CurrentNode.Content</p>
+
     <div>
         @{ var pathlink = ""; }
 
-        @foreach (var segment in PathSegments)
+        @foreach (var node in PageNodes)
         {
-            pathlink += segment + "/";
-            <a href="/site/@pathlink">@segment</a>
+            pathlink += node + "/";
+            <a href="/site/@pathlink">@node</a>
 
             <span>&nbsp;/&nbsp;</span>
         }
+
 
         <div class="search_div" style="display: inline-block;">
             <form id="search_form">
@@ -30,11 +40,30 @@
         </div>
     </div>
 }
+else
+{
+    <span>This page doesn't exists! Please go back to <a href="/">Quantum</a></span>
+}
 
 @code {
 
     [Parameter]
     public string? Path { get; set; }
 
-    public string[]? PathSegments => Path?.Split("/");
+    public string[] PageNodes => Path != null ? new[] { "Quantum" }.Concat(Path.Split("/")).ToArray() : new[] { "Quantum" };
+
+    public Node? CurrentNode { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        @foreach (var node in PageNodes)
+        {
+            CurrentNode = (await NodeRepository.ReadAsync(
+                n => n is Page &&
+                     n.Content == node &&
+                     n.ParentId == (CurrentNode != null ? CurrentNode.Id : null)
+                )).FirstOrDefault();
+        }
+    }
+
 }
