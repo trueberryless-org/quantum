@@ -1,0 +1,40 @@
+﻿@page "/site"
+@page "/site/{*Path}"
+
+@if (PathSegments != null)
+{
+    <div>
+        @{ var pathlink = ""; }
+
+        @foreach (var segment in PathSegments)
+        {
+            pathlink += segment + "/";
+            <a href="/site/@pathlink">@segment</a>
+
+            <span>&nbsp;/&nbsp;</span>
+        }
+
+        <div class="search_div" style="display: inline-block;">
+            <form id="search_form">
+                <input
+                    type="text"
+                    id="search"
+                    name=""
+                    placeholder="Search"
+                    autofocus
+                    autocapitalize="none"
+                    autocomplete="off"
+                    autocorrect="off"/>
+            </form>
+            <span id="information-after"></span>
+        </div>
+    </div>
+}
+
+@code {
+
+    [Parameter]
+    public string? Path { get; set; }
+
+    public string[]? PathSegments => Path?.Split("/");
+}
