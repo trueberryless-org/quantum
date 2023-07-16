@@ -6,11 +6,15 @@
 @using Quantum.Domain.Entities.Nodes
 
 @inject INodeRepository NodeRepository
+@inject NavigationManager NavigationManager
 
 
 @if (CurrentNode != null)
 {
-    <p>Current Node Content: @CurrentNode.Content</p>
+    <div class="title searchable">
+        <img id="title-logo" loading="lazy" src="@CurrentNode.Children.FirstOrDefault(n => n is Image && n.Order == 0)?.Content" alt=""/>
+        <h1>@CurrentNode.Content</h1>
+    </div>
 
     <div>
         @{ var pathlink = ""; }
@@ -39,6 +43,26 @@
             <span id="information-after"></span>
         </div>
     </div>
+
+    <div class="cards">
+        @foreach (var card in CurrentNode.Children.Where(n => n is Page))
+        {
+            <a href="@String.Concat("site/", TrimmedPath, "/", card.Content)">
+                <div class="card">
+                    <div class="card-before"></div>
+                    <div class="card-img">
+                        <img loading="lazy" src="@card.Children.FirstOrDefault(n => n is Image && n.Order == 0)?.Content" alt="Logo"/>
+                    </div>
+                    <div class="card-text">
+                        <h4>@card.Content</h4>
+                        <p>
+                            @card.Children.FirstOrDefault(n => n is Description && n.Order == 0)?.Content
+                        </p>
+                    </div>
+                </div>
+            </a>
+        }
+    </div>
 }
 else
 {
@@ -50,20 +74,35 @@ else
     [Parameter]
     public string? Path { get; set; }
 
-    public string[] PageNodes => Path != null ? new[] { "Quantum" }.Concat(Path.Split("/")).ToArray() : new[] { "Quantum" };
+    public string? TrimmedPath => Path?.Trim('/');
+
+    // public string[] PageNodes => Path != null ? new[] { "Quantum" }.Concat(Path.Split("/")).ToArray() : new[] { "Quantum" };
+
+    public string[] PageNodes => Path?.Split("/");
 
     public Node? CurrentNode { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
+        await LoadCurrentNode();
+    }
+
+    public async Task LoadCurrentNode()
+    {
+        var allNodes = await NodeRepository.ReadAsync();
+
         @foreach (var node in PageNodes)
         {
-            CurrentNode = (await NodeRepository.ReadAsync(
+            CurrentNode = allNodes.FirstOrDefault(
                 n => n is Page &&
                      n.Content == node &&
-                     n.ParentId == (CurrentNode != null ? CurrentNode.Id : null)
-                )).FirstOrDefault();
+                     n.ParentId == CurrentNode?.Id);
         }
+
+        if (CurrentNode != null)
+            CurrentNode = await NodeRepository.IncludeChildren(CurrentNode, 2);
     }
+
+    // TODO: StateHasChanged when redirect
 
 }
