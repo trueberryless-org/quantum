@@ -4,5 +4,5 @@ namespace Quantum.Application.Services.Interfaces;
 
 public interface INodeRepository : IRepository<Node>
 {
-    Task<Node> IncludeChildren(Node currentNode, int levelAmount);
+    Task<Node> IncludeChildren(Node currentNode, int levelAmount = 1);
 }

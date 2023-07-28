@@ -9,65 +9,54 @@
 @inject NavigationManager NavigationManager
 
 
-@if (CurrentNode != null)
-{
-    <div class="title searchable">
-        <img id="title-logo" loading="lazy" src="@CurrentNode.Children.FirstOrDefault(n => n is Image && n.Order == 0)?.Content" alt=""/>
-        <h1>@CurrentNode.Content</h1>
-    </div>
+<DataInit Data="CurrentNode">
+    <ChildContent Context="currentNode">
 
-    <div>
-        @{ var pathlink = ""; }
-
-        @foreach (var node in PageNodes)
-        {
-            pathlink += node + "/";
-            <a href="/site/@pathlink">@node</a>
-
-            <span>&nbsp;/&nbsp;</span>
-        }
-
-
-        <div class="search_div" style="display: inline-block;">
-            <form id="search_form">
-                <input
-                    type="text"
-                    id="search"
-                    name=""
-                    placeholder="Search"
-                    autofocus
-                    autocapitalize="none"
-                    autocomplete="off"
-                    autocorrect="off"/>
-            </form>
-            <span id="information-after"></span>
+        <div class="title searchable">
+            <img id="title-logo" loading="lazy" src="@currentNode.Children.FirstOrDefault(n => n is Image && n.Order == 0)?.Content" alt=""/>
+            <h1>@currentNode.Content</h1>
         </div>
-    </div>
 
-    <div class="cards">
-        @foreach (var card in CurrentNode.Children.Where(n => n is Page))
-        {
-            <a href="@String.Concat("site/", TrimmedPath, "/", card.Content)">
-                <div class="card">
-                    <div class="card-before"></div>
-                    <div class="card-img">
-                        <img loading="lazy" src="@card.Children.FirstOrDefault(n => n is Image && n.Order == 0)?.Content" alt="Logo"/>
-                    </div>
-                    <div class="card-text">
-                        <h4>@card.Content</h4>
-                        <p>
-                            @card.Children.FirstOrDefault(n => n is Description && n.Order == 0)?.Content
-                        </p>
-                    </div>
-                </div>
-            </a>
-        }
-    </div>
-}
-else
-{
-    <span>This page doesn't exists! Please go back to <a href="/">Quantum</a></span>
-}
+        <div>
+            @{ var pathlink = ""; }
+
+            @foreach (var node in PageNodes)
+            {
+                pathlink += node + "/";
+                <a href="/site/@pathlink">@node</a>
+
+                <span>&nbsp;/&nbsp;</span>
+            }
+
+
+            <div class="search_div" style="display: inline-block;">
+                <form id="search_form">
+                    <input
+                        type="text"
+                        id="search"
+                        name=""
+                        placeholder="Search"
+                        autofocus
+                        autocapitalize="none"
+                        autocomplete="off"
+                        autocorrect="off"/>
+                </form>
+                <span id="information-after"></span>
+            </div>
+        </div>
+
+        <Content Node="currentNode"/>
+        
+    </ChildContent>
+    <NoContent>
+        <div style="display: flex; justify-content: center; align-items: center; height: 100vh">
+            <p>
+                This page doesn't exists! Please go back to <a href="/site/Quantum">Quantum</a>!
+            </p>
+        </div>
+    </NoContent>
+</DataInit>
+
 
 @code {
 
@@ -82,13 +71,16 @@ else
 
     public Node? CurrentNode { get; set; }
 
-    protected override async Task OnInitializedAsync()
+    protected override async Task OnParametersSetAsync()
     {
         await LoadCurrentNode();
     }
 
     public async Task LoadCurrentNode()
     {
+        if (Path == null)
+            NavigationManager.NavigateTo("/site/Quantum");
+
         var allNodes = await NodeRepository.ReadAsync();
 
         @foreach (var node in PageNodes)

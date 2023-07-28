@@ -11,8 +11,8 @@ using Quantum.Domain.Configuration;
 namespace Quantum.Domain.Migrations
 {
     [DbContext(typeof(ModelDbContext))]
-    [Migration("20230715223324_DiscriminatorString")]
-    partial class DiscriminatorString
+    [Migration("20230716101937_DbSchema")]
+    partial class DbSchema
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

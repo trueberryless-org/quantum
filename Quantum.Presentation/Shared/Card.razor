@@ -1,0 +1,25 @@
+﻿@using Quantum.Domain.Entities
+@using Quantum.Domain.Entities.Nodes
+
+<a href="@Link">
+    <div class="card">
+        <div class="card-before"></div>
+        <div class="card-img">
+            <img loading="lazy" src="@Node.Children.FirstOrDefault(n => n is Image && n.Order == 0)?.Content" alt="Logo"/>
+        </div>
+        <div class="card-text">
+            <h4>@Node.Content</h4>
+            <p>
+                @Node.Children.FirstOrDefault(n => n is Description && n.Order == 0)?.Content
+            </p>
+        </div>
+    </div>
+</a>
+
+@code {
+    [Parameter]
+    public Node Node { get; set; }
+    
+    [Parameter]
+    public string Link { get; set; }
+}

@@ -21,6 +21,8 @@ public class NodeRepository : ARepository<Node>, INodeRepository
             .Include(n => n.Children)
             .FirstAsync(n => n.Id == currentNode.Id);
 
+        //currentNode.Children = currentNode.Children.OrderBy(n => n.Order);
+
         // Including children's children recursively
         foreach (var child in currentNode.Children)
         {

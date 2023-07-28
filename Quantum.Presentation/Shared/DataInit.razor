@@ -1,0 +1,20 @@
+﻿@typeparam T
+
+@if (Data is not null) {
+    @ChildContent(Data)
+}
+else if (Data is null) {
+    @NoContent
+}
+
+@code {
+    [Parameter]
+    [EditorRequired]
+    public T? Data { get; set; }
+
+    [Parameter]
+    public RenderFragment<T> ChildContent { get; set; } = null!;
+    
+    [Parameter]
+    public RenderFragment NoContent { get; set; } = null!;
+}

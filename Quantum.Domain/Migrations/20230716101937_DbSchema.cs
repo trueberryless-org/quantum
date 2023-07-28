@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Quantum.Domain.Migrations
 {
     /// <inheritdoc />
-    public partial class NodeLogic : Migration
+    public partial class DbSchema : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -24,7 +24,8 @@ namespace Quantum.Domain.Migrations
                     CONTENT = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     ORDER = table.Column<int>(type: "int", nullable: false),
-                    TYPE = table.Column<int>(type: "int", nullable: false)
+                    TYPE = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4")
                 },
                 constraints: table =>
                 {

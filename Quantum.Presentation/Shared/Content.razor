@@ -1,0 +1,45 @@
+﻿@using Quantum.Domain.Entities
+@using Quantum.Domain.Entities.Nodes
+@using Quantum.Domain.Entities.Nodes.Sections
+@using Quantum.Application.Services.Implementations
+@using Quantum.Application.Services.Interfaces
+
+@inject INodeRepository NodeRepository
+
+@foreach (var node in 
+    Node.Children
+        .Where(n => n is not Description))
+{
+    switch (node)
+    {
+        case Page:
+            <div class="cards">
+                @*<Card Node="node" Link="@string.Concat("/site/", node.Path)"/>*@
+            </div>
+            break;
+
+        case Heading:
+            <div class="heading">@node.Content</div>
+            <div>
+                @*<Content Node="@node"/>*@
+            </div>
+            break;
+
+        case Paragraph:
+            break;
+        default:
+            break;
+    }
+}
+
+@code {
+
+    [Parameter]
+    public Node Node { get; set; }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        Node = await NodeRepository.IncludeChildren(Node);
+    }
+
+}

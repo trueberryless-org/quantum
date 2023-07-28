@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.EntityFrameworkCore;
 using Quantum.Domain.Entities;
 using Quantum.Domain.Entities.Nodes;
 using Quantum.Domain.Entities.Nodes.Sections;
@@ -24,16 +25,16 @@ public class ModelDbContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Node>()
+            .HasOne(n => n.Parent)
+            .WithMany(n => n.Children)
+            .HasForeignKey(n => n.ParentId);
+        
+        modelBuilder.Entity<Node>()
             .HasDiscriminator<string>("TYPE")
             .HasValue<Page>(ENodeType.PAGE.ToString())
             .HasValue<Heading>(ENodeType.HEADING.ToString())
             .HasValue<Paragraph>(ENodeType.PARAGRAPH.ToString())
             .HasValue<Image>(ENodeType.IMAGE.ToString())
             .HasValue<Description>(ENodeType.DESCRIPTION.ToString());
-
-        modelBuilder.Entity<Node>()
-            .HasOne(n => n.Parent)
-            .WithMany(n => n.Children)
-            .HasForeignKey(n => n.ParentId);
     }
 }
